@@ -10,13 +10,7 @@ using namespace std;
 // Abstract Base Class
 class Rentals {
 	public:
-		int id;
-		bool available;
-		bool service;
-		float rate;
-		char* intersection;
 
-		bool state;  // 1 in operation,  0 in repairshop,  what about READY
 
 		int servicing(Rentals* brokenRentals);  // int returns the numbers of days since last service
 
@@ -31,9 +25,15 @@ class Rentals {
 		Rentals();
 		virtual ~Rentals();
 		Rentals(const Rentals& otherRentals);
+		Rentals(int newId, bool available, bool service, float setRate, char address[]); 
 
 
 	protected:
+		int id;
+		bool isAvailable;
+		bool needsService;
+		float rate;
+		char* intersection;
 
 
 };
@@ -52,6 +52,7 @@ class Scooter : public Rentals {
 
 		Scooter();
 		Scooter(const Scooter & otherScooter);
+		Scooter(int newId, bool available, bool service, char intersections[50]); 
 	protected:
 
 
@@ -64,13 +65,14 @@ class Vehicle : public Rentals {
 	public:
 		char* licensePlate;
 		float gasLevel;
-		bool returnedFull;
 		int seats;
 
+		bool returnedFull();
 		Vehicle();
-	virtual	~Vehicle();
-	//virtual	~Vehicle();
+		~Vehicle();
 		Vehicle(const Vehicle& otherVehicle);
+		Vehicle(int newId, bool available, bool service, float rate, char address[], char plates[], float gas, int numSeats); 
+
 
 	protected:
 
@@ -81,10 +83,11 @@ class Zip_Car : public Vehicle {
 	public:
 		Zip_Car();
 		Zip_Car(const Zip_Car& otherZipCar);
+		Zip_Car(int newId, bool available, bool service, char intersections[50], char plates[]); 
+
 
 		void print() const;
 
-		// do I need print here
 	protected:
 
 
@@ -95,14 +98,14 @@ class Zip_Car : public Vehicle {
 class Limo : public Vehicle {
 	public:
 		char* driverName;
-		int minimumRentalHours;
+		int reservedHours;
 
 		Limo();
 		Limo(const Limo& otherLimo);
+		Limo(int newId, bool available, bool service, char intersections[50], char plates[], char name[], int hours); 
 
 		void print() const;
 
-		// do I need print here
 	protected:
 
 

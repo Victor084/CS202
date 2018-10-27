@@ -19,6 +19,8 @@ class Node {
 	Node* goPrev();
 	void setPrev(Node* newPrev);
 
+	Rentals* getData();
+
 
 	protected:
 	Rentals* data;
@@ -36,6 +38,8 @@ class List {
 	
 	void listBuild();
 	void insert(Rentals* newRental);
+	void displayAll() const;
+	void displayAll(Node* head) const;
 	void deleteAll(Node* &head);
 
 
@@ -43,7 +47,6 @@ class List {
 	protected:
 	Node* head;
 	Node* tail;
-
 
 };
 

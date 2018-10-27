@@ -24,6 +24,7 @@ Node::~Node(){
 	prev = nullptr;
 }
 Node::Node(Rentals* newData){
+	data = newData;
 /*
 	if(typeid(newData) == typeid(Scooter))
 		data = new Scooter(ID name, batteryLevel );
@@ -58,6 +59,9 @@ Node* Node::goPrev(){
 void Node::setPrev(Node* newPrev){
 	prev = newPrev;
 }
+Rentals* Node::getData(){
+	return(data);
+}
 
 
 
@@ -77,6 +81,7 @@ List::~List(){
 void List::deleteAll(Node* &head){
 	Node* temp = nullptr;
 	if(head){
+
 		temp = head->goNext();
 		delete head;
 		head = temp;
@@ -86,42 +91,18 @@ void List::deleteAll(Node* &head){
 }
 
 void List::listBuild(){
-	int type = 0;
-	//menu asking user to enter product details
-	cout << "Congratulations in starting your transportation rental servivce!" << endl;
-	cout << "Let's start by entering some inventory" << endl;
-
-	do{
-		cout << endl << endl << "What product would you like to do? " << endl << endl;
-		cout << "1) Enter a new Scooter" << endl
-			 << "2) Enter a new Zip Car" << endl
-			 << "3) Enter a new Limo and driver" << endl
-			 << "4) Exit the inventory manager" << endl;
-		cin >> type;
-		if(type < 1 && type > 4)
-			cout << "Unrecognized selection. Please try again" << endl;
-		else
-			switch(type){
-				case 1:{
-						   Scooter* sPtr  = new Scooter;
-						   insert(sPtr);
-					   }
-					   break;
-				case 2:{
-						   Zip_Car* zPtr = new Zip_Car;
-						   insert(zPtr);
-					   }
-					   break;
-
-				case 3:{
-						   Limo* limoPtr = new Limo;
-						   insert(limoPtr);
-					   }
-					   break;
-			}
-	}while(type > 0 && type < 4);
 }
 
+void List::displayAll() const {
+	displayAll(head);
+}
+
+void List::displayAll(Node* head) const {
+	if(!head) return;
+
+	head->getData()->print();
+	displayAll(head->goNext() );
+}
 
 
  // insert with recursion for traversal of LLL  so obj is in correct node position
