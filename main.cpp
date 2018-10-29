@@ -1,6 +1,16 @@
+/*
+   Victor Heredia
+   CS202 - 10/29/18
+   program 2 using dynamic binding
+
+   main.cpp
+   This is the driver file of the program. From here we can interact with the use and enter all the necessary information the list class will need.
+   This file has several variables that are used to construct objects that will be passed in to the list class.
+
+ */
 #include "dll.h"
 
-void captureInfo(int& id, bool& available, char intersections[50]);
+void captureInfo(int& id, bool& available, char intersections[50], List currentList);
 
 int main(){
 	int id;
@@ -11,25 +21,28 @@ int main(){
 	int hours;
 
 
-	List myInventory;
+	List myInventory;   // this is a list object that manages all our data
 	int type = 0;
 	//menu asking user to enter product details
 	cout << "Congratulations in starting your transportation rental service!" << endl;
 	cout << "Let's start by entering some inventory" << endl;
 
 	do{
+		// I really should had implemented a try and catch to assure only acceptable inputs were accepted and not terminating my program
 		cout << endl << endl << "What product would you like to do? " << endl << endl;
-		cout << "1) Enter a new Scooter" << endl
-			<< "2) Enter a new Zip Car" << endl
-			<< "3) Enter a new Limo and driver" << endl
-			<< "4) Check out a product to a customer." << endl
-			<< "5) Check in a product from a customer." << endl // enter number of hours used
-			<< "6) Calculate the revenue made from a single product.\n" // amount earned since last service
-			<< "7) Display entire inventory" << endl;
+		cout << "1) Enter a new Scooter" << endl  // create a new node with a scooter in the list
+			 << "2) Enter a new Zip Car" << endl  // create a new node with a zip car in the list
+			 << "3) Enter a new Limo and driver" << endl   // create a new node with a Limo in the list
+			 << "4) Check out a product to a customer." << endl  // make product unavailable
+			 << "5) Check in a product from a customer." << endl // enter number of hours used
+			 << "6) Calculate the revenue made from a single product.\n" // amount earned since last service
+			 << "7) Display entire inventory" << endl  // This is all one cout statement
+			 << "0) To exit" << endl;
+		cout << "Please make a selection by entering only one of the numbers listed above: ";
 		cin >> type;
 		cin.ignore(100, '\n');
 		cin.clear();
-		if(type < 1 && type > 7)
+		if(type < 0 && type > 7)
 			cout << "Unrecognized selection. Please try again" << endl;
 		else
 			switch(type){
@@ -129,7 +142,7 @@ int main(){
 									////if the product is a VEHICLE type ask about the gas level
 									//cout << "What is the gas level of the " << myInventory.getType(productPtr) << "?";
 									//cin >> gasLevel; 
-						//cout << "Please rate" << myInventory.getDriversName(id) << " on a scale of 1 to 5 stars." << endl;
+									//cout << "Please rate" << myInventory.getDriversName(id) << " on a scale of 1 to 5 stars." << endl;
 									cin >> rating;
 									myInventory.checkInVehicle(id, hours, needsRepairing, gasLevel, rating);
 								}//end of Limo
@@ -139,55 +152,53 @@ int main(){
 						break;
 
 				case 6:{
-						// calculate revenue
-						cout << "This is case 6\n";
-				}
-						break;
+						   // calculate revenue
+						   cout << "This is case 6\n";
+					   }
+					   break;
 
 				case 7:{
-
 						   // print
 						   myInventory.displayAll();
 					   }
 					   break;
 				default:{
-							cout << "Invalid selection" << endl;
+							cout << "Invalid selection" << endl; // don't need a default since the switch is in an if else guarding incorrect entries
 						}
 
 						break;
 
 			}
-	}while(type > 0 && type < 8);
+	}while(type != 0); // quick and simple error cheking but great, but it works
 
 
 
 	return(0);
 }
 
-void captureInfo(int& id, bool& available, char intersections[50]){
-	char repair;
 
+
+// didn't want to enter the same code three time, one for each case that creates a new derived object
+void captureInfo(int& id, bool& available, char intersections[50], List currentlist){
+	char repair;
+	bool isNotUnique = 0;
 	cout << "Please catalog the product, by entering the following info:\n";
 	// should I check to make sure that ID is not already being used?
-	cout << "Please enter an ID number: ";
-	cin >> id;
-
-	cout << "\nDoes it need any repairs? (Y/N) ";
+	do{
+		if(isNotUnique)
+			cout << "ID number is already assigned to a product.\n";
+		cout << "Please enter an ID number: "; // should really should have a function here that checking that the id is unique
+		cin >> id;
+		isNotUnique = currentlist.idAlreadyUsed(id);
+	}while(isNotUnique )
+	cout << "\nDoes it need any repairs? (Y/N) ";  // not really required here, but maybe a product arrived defective or second hand
 	cin >> repair;
 	cin.ignore(100, '\n');
 	cin.clear();
-	repair = toupper(repair);
+	repair = toupper(repair);  // if it needs repairs then it is not available
 	available = (repair == 'Y') ? false : true;
-	// dont forget to include this in the constructor
-	//cout << "\nHow much will this prodcut be rented for? " ;
-	//cin >> rate;
-	cout << "\nWhere will this product be deployed? (street intersections) " ;	
+	cout << "\nWhere will this product be deployed? (street intersections) " ;	// each product has a home base where they start, strategic placement
 	cin.get(intersections, 50, '\n');	
 	cin.ignore(100, '\n');
 	cin.clear();
-
-
 }
-
-
-

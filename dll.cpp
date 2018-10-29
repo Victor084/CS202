@@ -257,4 +257,12 @@ ostream& List::getDriversName(ostream& outObj, int limoId){
 	//}
 	//getDriversName(head->goNext(), limoId);
 }
+bool List::idAlreadyUsed(int id){
+	bool returningValue = 0;
+	// if we find a node with that id then it is not Unique
+	if(getDataPtr(head, id))
+		returningValue = true;
+	// initialized to false to begin with 
+	return returningValue;
+}
 

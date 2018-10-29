@@ -48,9 +48,10 @@ class List {
 	Rentals* getIdPtr(int requestId);
 	Rentals* getDataPtr(Node* head, int key);
 	void getType(Rentals* product);
-void checkInScooter(int checkInId, int rentedHours, bool repair, int batteryLevel);
-void checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating = 0);
-ostream& getDriversName(ostream& outObj, int limoId);
+	void checkInScooter(int checkInId, int rentedHours, bool repair, int batteryLevel);
+	void checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating = 0);
+	ostream& getDriversName(ostream& outObj, int limoId);
+	bool idAlreadyUsed(int id);
 
 	Node* getHead();
 
