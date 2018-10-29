@@ -24,6 +24,7 @@ class Rentals {
 
 		virtual void print() const = 0;
 		virtual void returningScooter(int rentedHours, bool repair, float batteryLevel);
+		virtual void returningVehicle(int hours, bool repair, float currentFuel, int rating = 0);
 
 		Rentals(int, bool);
 		Rentals();

@@ -88,9 +88,13 @@ int main(){
 							// yeah this would be a good place
 							cout << "Enter the ID of the product being returned: ";
 							cin >> id;
-						//cout <<"How many hours did the customer have the " << myInventory.getType(productPtr) << "? ";
+							cout <<"How many hours did the customer have the ";
+							myInventory.getType(productPtr);
+							cout << "? ";
 							cin >> hours;
-						//cout << "Does the " << myInventory.getType(productPtr) << " need to be serviced? ";
+							cout << "Does the ";
+							myInventory.getType(productPtr);
+							cout << " need to be serviced? ";
 							cin >> repair;
 							cin.ignore(100, '\n');
 							cin.clear();
@@ -108,7 +112,9 @@ int main(){
 							if(typeid(*productPtr) == typeid(Vehicle)){
 								float gasLevel = 0.0;
 								//if the product is a VEHICLE type ask about the gas level
-						//cout << "What is the gas level of the " << myInventory.getType(productPtr) << "?";
+								cout << "What is the gas level of the ";
+								myInventory.getType(productPtr);
+								cout << "?";
 								cin >> gasLevel; 
 
 								if(typeid(*productPtr) == typeid(Zip_Car)){
@@ -121,9 +127,9 @@ int main(){
 									//float gasLevel = 0.0;
 									//int rating = 0;
 									////if the product is a VEHICLE type ask about the gas level
-							//cout << "What is the gas level of the " << myInventory.getType(productPtr) << "?";
+									//cout << "What is the gas level of the " << myInventory.getType(productPtr) << "?";
 									//cin >> gasLevel; 
-									cout << "Please rate" << myInventory.getDriversName(id) << " on a scale of 1 to 5 stars." << endl;
+						//cout << "Please rate" << myInventory.getDriversName(id) << " on a scale of 1 to 5 stars." << endl;
 									cin >> rating;
 									myInventory.checkInVehicle(id, hours, needsRepairing, gasLevel, rating);
 								}//end of Limo

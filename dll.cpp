@@ -241,14 +241,15 @@ void List::checkInScooter(int checkInId, int rentedHours, bool repair, int batte
 
 }
 void List::checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating){
-	getDataPtr(head, id)->returningVehicle(id, hours, needsRepairing, gasLevel, rating);
+	getDataPtr(head, id)->returningVehicle(hours, needsRepairing, gasLevel, rating);
 }
 
 // will only be called if the base pointer is pointing to a limo object
-ostream& List::getDriversName(int limoId){
+ostream& List::getDriversName(ostream& outObj, int limoId){
 	
 	// searc the list for the limo and get cout the name
-	return cout << getDataPtr(head, limoId);
+	  outObj << (getDataPtr(head, limoId));
+	  return outObj;
 	//return cout << getDataPtr(head, limoId)->printName();
 	//if(head->getData()->getId() == key){
 	//	head->getData->printName();

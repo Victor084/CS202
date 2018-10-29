@@ -2,6 +2,7 @@
 #define DLL_H
 
 #include "inheritance.h"
+#include <typeinfo>
 
 class Node {
 	public:
@@ -48,8 +49,8 @@ class List {
 	Rentals* getDataPtr(Node* head, int key);
 	void getType(Rentals* product);
 void checkInScooter(int checkInId, int rentedHours, bool repair, int batteryLevel);
-void checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating);
-ostream& getDriversName(int limoId);
+void checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating = 0);
+ostream& getDriversName(ostream& outObj, int limoId);
 
 	Node* getHead();
 

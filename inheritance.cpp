@@ -216,8 +216,8 @@ void Limo::print() const{
 		 << "This limo is must be resereved for a minimum of " << reservedHours << " hours.\n";
 }
 // extractor operator overloaded just to print the name inline
-ostream& operator<<(ostream& outObj, const Limo& name){
-	outObj << driverName;
+ostream& operator<<(ostream& outObj, const Limo& limo){
+	outObj << limo.driverName;
 	return outObj;
 }
 void Limo::returningVehicle(int hours, bool repair, float currentFuel, int rated){
