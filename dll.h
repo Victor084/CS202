@@ -14,9 +14,9 @@ class Node {
 	Node(const Limo & newLimo);
 
 
-	Node* goNext();
+	Node* &goNext();
 	void setNext(Node* newNext);
-	Node* goPrev();
+	Node* &goPrev();
 	void setPrev(Node* newPrev);
 
 	Rentals* getData();
@@ -32,9 +32,6 @@ class Node {
 
 class List {
 	public:
-	List();
-	~List();
-	List(const List & otherList);
 	
 	void listBuild();
 	void insert(Rentals* newRental);
@@ -42,7 +39,23 @@ class List {
 	void displayAll(Node* head) const;
 	void deleteAll(Node* &head);
 
+	void removeNode(Node* &head, int key);
+	void rent(int renID);
+	void search(Node* head, int key);
+	void checkIn(int rentID, int hours, bool isBroken);
+	void checkInSearch(Node* &head, int key, int hoursUsed, bool isBroken);
+	Rentals* getIdPtr(int requestId);
+	Rentals* getDataPtr(Node* head, int key);
+	void getType(Rentals* product);
+void checkInScooter(int checkInId, int rentedHours, bool repair, int batteryLevel);
+void checkInVehicle(int id, int hours, bool needsRepairing, float gasLevel, int rating);
+ostream& getDriversName(int limoId);
 
+	Node* getHead();
+
+	List();
+	~List();
+	List(const List & otherList);
 
 	protected:
 	Node* head;

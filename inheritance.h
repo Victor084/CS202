@@ -6,7 +6,7 @@
 
 using namespace std;
 
-//################## Base class ########
+//################## Base class ###################
 // Abstract Base Class
 class Rentals {
 	public:
@@ -17,9 +17,13 @@ class Rentals {
 		float hoursUsed();
 		float totalRevenue();
 		float earningsPerServiceOfRentals();
+		int getId();
+		void setAvailability(bool);
+		void setRental(bool state);
 
 
 		virtual void print() const = 0;
+		virtual void returningScooter(int rentedHours, bool repair, float batteryLevel);
 
 		Rentals(int, bool);
 		Rentals();
@@ -31,10 +35,13 @@ class Rentals {
 	protected:
 		int id;
 		bool isAvailable;
-		bool needsService;
+		bool isRented;
 		float rate;
 		char* intersection;
 
+		int hoursRented;
+
+
 
 };
 
@@ -43,74 +50,98 @@ class Rentals {
 
 
 
-// ********** DERIVED CLASSES **********
+// ********** DERIVED CLASSES  FROM RENTALS  **********
 class Scooter : public Rentals {
 	public:
-		float batteryLevel;
-
-		void print() const;
-
 		Scooter();
 		Scooter(const Scooter & otherScooter);
-		Scooter(int newId, bool available, bool service, char intersections[50]); 
+		// this constructor created a complete scooter and allowed me to use the copy constructor when inserting that completed scooter object
+		Scooter(int newId, bool available, bool service, char intersections[]); 
+
+
+		void print() const;
+		void returningScooter(int rentedHours, bool repair, float batteryLevel);
+
+
 	protected:
-
-
+		float batteryLevel;
 
 };
 
 
-//#### Sub Base CLass  ########
+
+
+
+//#### SUB ABSTRACT CLASS DERIVED FROM RENTALS  ########
+
+// this class will NOT implement the pure virtual function from the ABC making it an ABC too
 class Vehicle : public Rentals {
 	public:
+		Vehicle();
+		~Vehicle();
+		// the copy constructor
+		Vehicle(const Vehicle& otherVehicle);
+		//this constructor passes everything up to the Base class
+		Vehicle(int newId, bool available, bool service, float rate, char address[], char plates[], float gas, int numSeats); 
+
+
+		virtual void returningVehicle(int hours, bool repair, float currentFuel, int rating = 0) = 0;
+		bool returnedFull();
+
+
+	protected:
 		char* licensePlate;
 		float gasLevel;
 		int seats;
 
-		bool returnedFull();
-		Vehicle();
-		~Vehicle();
-		Vehicle(const Vehicle& otherVehicle);
-		Vehicle(int newId, bool available, bool service, float rate, char address[], char plates[], float gas, int numSeats); 
-
-
-	protected:
-
 
 };
 
+
+
+
+// ------------ DERIVED CLASSES FROM VEHICLE -------------------------//
+
+// a Zip Car is a Vehicle
 class Zip_Car : public Vehicle {
 	public:
 		Zip_Car();
 		Zip_Car(const Zip_Car& otherZipCar);
-		Zip_Car(int newId, bool available, bool service, char intersections[50], char plates[]); 
+		// this constructor allows me to construct a complete zip car and use the copy constructor when passing it to the insert function of my data structure
+		Zip_Car(int newId, bool available, bool service, char intersections[], char plates[]); 
 
 
 		void print() const;
+		void returningVehicle(int hours, bool repair, float currentFuel, int rating = 0);
 
 	protected:
-
+	// no additional members needed, since it is derived from Vehicle and that has everything
 
 
 };
 
 
+
+// a Limo is a Vehicle
 class Limo : public Vehicle {
+	friend ostream& operator<<(ostream&, const Limo&);
 	public:
+		void printName();
+		Limo();
+		Limo(const Limo& otherLimo); // copy constructor
+		// this constructor allows me to construct a complete zip car and use the copy constructor when passing it to the insert function of my data structure
+		Limo(int newId, bool available, bool service, char intersections[], char plates[], char name[], int hours); 
+
+		void print() const;
+		void returningVehicle(int hours, bool repair, float currentFuel, int rating = 0);
+
+	protected:
 		char* driverName;
 		int reservedHours;
-
-		Limo();
-		Limo(const Limo& otherLimo);
-		Limo(int newId, bool available, bool service, char intersections[50], char plates[], char name[], int hours); 
-
-		void print() const;
-
-	protected:
+		int rating;
 
 
 };
-
 
 
 #endif
