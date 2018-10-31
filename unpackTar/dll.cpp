@@ -364,16 +364,18 @@ void List::getDriversName(int limoId){
 // this was a failed expirement 
 
 // will only be called if the base pointer is pointing to a limo object
-ostream& List::getDriversName(int limoId){
-	//searc the list for the limo and get cout the name
-	Limo* limoPtr = dynamic_cast<Limo*>( getDataPtr(head, limoId) );
-	limoPtr->printName();
-	if(head->getData()->getId() == key){
-		head->getData->printName();
-		return; 
-	}
-	getDriversName(head->goNext(), limoId);
-}
+//ostream& List::getDriversName(int limoId){
+//ostream& outObj;
+// searc the list for the limo and get cout the name
+//outObj << (getDataPtr(head, limoId));
+//return outObj;
+//return cout << getDataPtr(head, limoId)->printName();
+//if(head->getData()->getId() == key){
+//	head->getData->printName();
+//	return; 
+//}
+//getDriversName(head->goNext(), limoId);
+//}
 
 
 
